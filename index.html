@@ -447,24 +447,16 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 }
 .hero-img {
   width: 100%; height: 100%;
-  background:
-    linear-gradient(135deg, rgba(160,25,11,.08), rgba(245,236,220,.5)),
-    linear-gradient(135deg, var(--cream), var(--bg-deep));
   border-radius: var(--r-lg);
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-deep);
+  background: var(--bg-deep);
 }
-.hero-img::after {
-  content: '[FOTO HERO\Aambiente envelopado]';
-  white-space: pre;
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--serif); font-style: italic;
-  color: var(--ink-mute);
-  font-size: 14px;
-  text-align: center;
-  padding: 20px;
+.hero-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .hero-badge {
@@ -535,19 +527,15 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 .about-img {
   aspect-ratio: 5/6;
   border-radius: var(--r-lg);
-  background: linear-gradient(135deg, var(--cream), #ddd1ba);
+  background: var(--bg-deep);
   box-shadow: var(--shadow-deep);
   position: relative;
   overflow: hidden;
 }
-.about-img::after {
-  content: '[FOTO da equipe\Aou Jardim Botânico]';
-  white-space: pre;
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--serif); font-style: italic;
-  color: var(--ink-mute); font-size: 14px;
-  text-align: center;
+.about-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .about-text h2 { margin-bottom: 32px; }
 .about-text p {
@@ -572,6 +560,153 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
   .about { grid-template-columns: 1fr; gap: 48px; }
   .about-img { max-width: 480px; margin: 0 auto; }
   .about-pillars { grid-template-columns: 1fr; }
+}
+
+/* ============== VÍDEO APLICAÇÃO ============== */
+.video-section {
+  background: var(--ink);
+  color: var(--bg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.video-section .section-eyebrow { color: var(--brand-soft); }
+.video-section h2 {
+  color: var(--bg);
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -.025em;
+  margin-bottom: 24px;
+}
+.video-section h2 em { font-style: italic; color: var(--brand-soft); }
+.video-section p {
+  font-size: 17px;
+  line-height: 1.6;
+  color: rgba(245,236,220,.7);
+  margin-bottom: 24px;
+}
+.video-stat {
+  display: flex; gap: 32px;
+  padding-top: 24px;
+  margin-top: 32px;
+  border-top: 1px solid rgba(245,236,220,.1);
+}
+.video-stat-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 36px;
+  color: var(--brand-soft);
+  line-height: 1;
+  margin-bottom: 6px;
+  letter-spacing: -.02em;
+}
+.video-stat-label {
+  font-size: 12px;
+  color: rgba(245,236,220,.55);
+  letter-spacing: .04em;
+}
+.video-wrap {
+  aspect-ratio: 9/16;
+  max-height: 600px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-deep);
+  background: #000;
+  margin: 0 auto;
+}
+.video-wrap video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.video-badge {
+  position: absolute;
+  top: 16px; left: 16px;
+  padding: 6px 12px;
+  background: rgba(14,12,11,.75);
+  backdrop-filter: blur(8px);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  color: var(--bg);
+  z-index: 2;
+  display: flex; align-items: center; gap: 8px;
+}
+.video-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--brand-soft);
+  border-radius: 50%;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .3; }
+}
+
+@media (max-width: 880px) {
+  .video-section { grid-template-columns: 1fr; gap: 40px; }
+  .video-wrap { max-width: 360px; }
+}
+
+/* ============== DETALHES & ACABAMENTOS ============== */
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 56px;
+}
+.detail-card {
+  position: relative;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  background: var(--bg-deep);
+}
+.detail-card:first-child {
+  grid-row: span 2;
+  aspect-ratio: 3/8;
+}
+.detail-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--t-slow);
+}
+.detail-card:hover img { transform: scale(1.04); }
+.detail-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(14,12,11,.85) 0%, rgba(14,12,11,0) 50%);
+  display: flex; align-items: end;
+  padding: 24px;
+  pointer-events: none;
+}
+.detail-card-overlay h4 {
+  color: var(--bg);
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -.005em;
+  margin-bottom: 4px;
+}
+.detail-card-overlay p {
+  color: rgba(245,236,220,.75);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+@media (max-width: 880px) {
+  .details-grid { grid-template-columns: 1fr 1fr; }
+  .detail-card:first-child { grid-row: auto; aspect-ratio: 3/4; }
+}
+@media (max-width: 480px) {
+  .details-grid { grid-template-columns: 1fr; }
 }
 
 /* ============== PARA QUEM É ============== */
@@ -891,18 +1026,31 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
   cursor: pointer;
   transition: var(--t-fast);
   aspect-ratio: 4/5;
+  display: block;
 }
 .gallery-item:nth-child(3n+2) { aspect-ratio: 1/1; margin-top: 40px; }
-.gallery-item::after {
-  content: attr(data-label);
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--serif); font-style: italic;
-  color: var(--ink-mute); font-size: 13px;
-  text-align: center; padding: 16px;
+.gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--t-slow);
 }
-.gallery-item:hover { transform: scale(1.02); box-shadow: var(--shadow-deep); }
+.gallery-item:hover { box-shadow: var(--shadow-deep); }
+.gallery-item:hover img { transform: scale(1.05); }
 .gallery-item.hidden { display: none; }
+.gallery-item-tag {
+  position: absolute;
+  bottom: 12px; left: 12px;
+  padding: 6px 12px;
+  background: rgba(14,12,11,.75);
+  backdrop-filter: blur(8px);
+  color: var(--bg);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  z-index: 2;
+}
 
 @media (max-width: 880px) {
   .gallery-grid { grid-template-columns: 1fr 1fr; }
@@ -1457,7 +1605,9 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
   </div>
 
   <div class="hero-visual">
-    <div class="hero-img"></div>
+    <div class="hero-img">
+      <img src="assets/mesa-marmore.webp" alt="Mesa de jantar envelopada em mármore com veios cobre — Curitiba" loading="eager" fetchpriority="high" width="1200" height="1600">
+    </div>
     <div class="hero-badge">
       <div class="hero-badge-stars">★★★★★</div>
       <div class="hero-badge-text">
@@ -1470,7 +1620,9 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 
 <!-- ============== SOBRE ============== -->
 <section class="about" id="sobre">
-  <div class="about-img reveal"></div>
+  <div class="about-img reveal">
+    <img src="assets/ferramentas.webp" alt="Ferramentas profissionais de aplicação de envelopamento — Envelopar Art & Decor Curitiba" loading="lazy" width="1200" height="1600">
+  </div>
   <div class="about-text reveal">
     <div class="section-eyebrow">Quem somos</div>
     <h2 class="section-title">Mais de duas décadas <em>renovando ambientes em Curitiba.</em></h2>
@@ -1495,6 +1647,36 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
         <div class="pillar-label">Atendimento em Curitiba e região</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============== VÍDEO APLICAÇÃO ============== -->
+<section class="video-section" id="aplicacao">
+  <div class="reveal">
+    <div class="section-eyebrow">Aplicação em ação</div>
+    <h2>Mais que película. <em>Acabamento de obra fina.</em></h2>
+    <p>Cada aplicação é feita com técnica milimétrica — superfície limpa, película alinhada, sem bolhas, sem emendas aparentes. É detalhe que faz parecer móvel novo, não móvel "envelopado".</p>
+    <p>Em média, transformamos uma mesa em poucas horas. Um ambiente inteiro, em poucos dias.</p>
+
+    <div class="video-stat">
+      <div>
+        <div class="video-stat-num">~3h</div>
+        <div class="video-stat-label">Mesa completa</div>
+      </div>
+      <div>
+        <div class="video-stat-num">1–5d</div>
+        <div class="video-stat-label">Ambientes inteiros</div>
+      </div>
+      <div>
+        <div class="video-stat-num">0</div>
+        <div class="video-stat-label">Quebra-quebra</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="video-wrap reveal">
+    <div class="video-badge">Aplicação real</div>
+    <video src="assets/aplicacao.mp4" poster="assets/video-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Vídeo de aplicação de envelopamento em mesa"></video>
   </div>
 </section>
 
@@ -1630,29 +1812,50 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
   </div>
 </section>
 
-<!-- ============== ANTES E DEPOIS ============== -->
-<section class="compare" id="antesdepois">
+<!-- ============== DETALHES & ACABAMENTOS ============== -->
+<section class="compare" id="detalhes">
   <div class="container">
     <div class="reveal">
-      <div class="section-eyebrow">Antes e depois</div>
-      <h2 class="section-title">A mesma cozinha. <em>Outra história.</em></h2>
-      <p class="section-lead">Arraste a barra para ver a transformação. Trabalhos reais entregues em Curitiba.</p>
+      <div class="section-eyebrow">Detalhes &amp; acabamentos</div>
+      <h2 class="section-title">Onde mora <em>a diferença.</em></h2>
+      <p class="section-lead">Aplicação técnica não é só colar a película — é o ângulo do corte, o alinhamento dos veios, a vedação do canto. É isso que separa um trabalho profissional de um caseiro.</p>
     </div>
 
-    <div class="compare-wrap reveal">
-      <div class="compare-tabs">
-        <button class="compare-tab active" data-case="0">Cozinha em Champagnat</button>
-        <button class="compare-tab" data-case="1">Sala em Batel</button>
-        <button class="compare-tab" data-case="2">Escritório no Centro</button>
-        <button class="compare-tab" data-case="3">Geladeira em Bigorrilho</button>
+    <div class="details-grid reveal">
+      <div class="detail-card">
+        <img src="assets/mesa-marmore.webp" alt="Mesa de jantar em mármore com veios cobre" loading="lazy" width="1200" height="1600">
+        <div class="detail-card-overlay">
+          <h4>Mármore com veios</h4>
+          <p>Película premium com alinhamento de padrão</p>
+        </div>
       </div>
-
-      <div class="compare-slider" id="slider">
-        <div class="compare-img compare-before">[FOTO ANTES]</div>
-        <div class="compare-img compare-after" id="afterImg">[FOTO DEPOIS]</div>
-        <div class="compare-label before">Antes</div>
-        <div class="compare-label after">Depois</div>
-        <div class="compare-handle" id="handle"></div>
+      <div class="detail-card">
+        <img src="assets/porta-marmore.webp" alt="Porta de correr em mármore branco" loading="lazy" width="1200" height="1600">
+        <div class="detail-card-overlay">
+          <h4>Porta de correr</h4>
+          <p>Acabamento sem emendas visíveis</p>
+        </div>
+      </div>
+      <div class="detail-card">
+        <img src="assets/parede-recepcao.webp" alt="Parede de recepção em mármore" loading="lazy" width="1200" height="1600">
+        <div class="detail-card-overlay">
+          <h4>Parede comercial</h4>
+          <p>Identidade visual em superfície contínua</p>
+        </div>
+      </div>
+      <div class="detail-card">
+        <img src="assets/geladeira-inox.webp" alt="Geladeira envelopada em inox escuro" loading="lazy" width="697" height="1280">
+        <div class="detail-card-overlay">
+          <h4>Eletrodoméstico</h4>
+          <p>Inox escuro espelhado em curva</p>
+        </div>
+      </div>
+      <div class="detail-card">
+        <img src="assets/cozinha-cinza.webp" alt="Cozinha externa com armários cinza envelopados" loading="lazy" width="745" height="1280">
+        <div class="detail-card-overlay">
+          <h4>Área gourmet</h4>
+          <p>Acabamento fosco em armários</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1667,23 +1870,51 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
     </div>
     <div class="gallery-filters">
       <button class="filter-btn active" data-filter="all">Todos</button>
-      <button class="filter-btn" data-filter="moveis">Móveis</button>
-      <button class="filter-btn" data-filter="paredes">Paredes</button>
-      <button class="filter-btn" data-filter="eletro">Eletro</button>
+      <button class="filter-btn" data-filter="marmore">Mármore</button>
+      <button class="filter-btn" data-filter="madeira">Madeira</button>
+      <button class="filter-btn" data-filter="cinza">Cinza</button>
+      <button class="filter-btn" data-filter="eletro">Eletros</button>
       <button class="filter-btn" data-filter="comercial">Comercial</button>
     </div>
   </div>
 
   <div class="gallery-grid reveal">
-    <div class="gallery-item" data-cat="moveis" data-label="[Cozinha em mármore — Ahú]"></div>
-    <div class="gallery-item" data-cat="paredes" data-label="[Parede texturizada — Batel]"></div>
-    <div class="gallery-item" data-cat="moveis" data-label="[Armário planejado — Champagnat]"></div>
-    <div class="gallery-item" data-cat="eletro" data-label="[Geladeira inox — Centro]"></div>
-    <div class="gallery-item" data-cat="comercial" data-label="[Loja comercial — Boqueirão]"></div>
-    <div class="gallery-item" data-cat="moveis" data-label="[Mesa de jantar — Mercês]"></div>
-    <div class="gallery-item" data-cat="paredes" data-label="[Sala de estar — Bigorrilho]"></div>
-    <div class="gallery-item" data-cat="comercial" data-label="[Recepção empresarial — Centro]"></div>
-    <div class="gallery-item" data-cat="moveis" data-label="[Bancada gourmet — Água Verde]"></div>
+    <a class="gallery-item" data-cat="madeira" href="assets/cozinha-madeira.webp" target="_blank" rel="noopener">
+      <img src="assets/cozinha-madeira.webp" alt="Bancada de cozinha envelopada em madeira clara" loading="lazy" width="960" height="1280">
+      <span class="gallery-item-tag">Madeira</span>
+    </a>
+    <a class="gallery-item" data-cat="marmore" href="assets/mesa-marmore.webp" target="_blank" rel="noopener">
+      <img src="assets/mesa-marmore.webp" alt="Mesa de jantar em mármore com veios cobre" loading="lazy" width="720" height="1280">
+      <span class="gallery-item-tag">Mármore</span>
+    </a>
+    <a class="gallery-item" data-cat="madeira" href="assets/mesa-praia.webp" target="_blank" rel="noopener">
+      <img src="assets/mesa-praia.webp" alt="Mesa oval de jantar em madeira — casa de praia" loading="lazy" width="960" height="1280">
+      <span class="gallery-item-tag">Madeira</span>
+    </a>
+    <a class="gallery-item" data-cat="comercial marmore" href="assets/parede-recepcao.webp" target="_blank" rel="noopener">
+      <img src="assets/parede-recepcao.webp" alt="Parede de recepção comercial em mármore com logo dourado" loading="lazy" width="1200" height="1600">
+      <span class="gallery-item-tag">Comercial</span>
+    </a>
+    <a class="gallery-item" data-cat="cinza" href="assets/cozinha-cinza.webp" target="_blank" rel="noopener">
+      <img src="assets/cozinha-cinza.webp" alt="Área gourmet com armários cinza envelopados" loading="lazy" width="745" height="1280">
+      <span class="gallery-item-tag">Cinza</span>
+    </a>
+    <a class="gallery-item" data-cat="comercial marmore" href="assets/porta-marmore.webp" target="_blank" rel="noopener">
+      <img src="assets/porta-marmore.webp" alt="Porta de correr em mármore branco — clínica" loading="lazy" width="1200" height="1600">
+      <span class="gallery-item-tag">Comercial</span>
+    </a>
+    <a class="gallery-item" data-cat="madeira" href="assets/mesa-nogueira.webp" target="_blank" rel="noopener">
+      <img src="assets/mesa-nogueira.webp" alt="Mesa de jantar em madeira nogueira" loading="lazy" width="960" height="1280">
+      <span class="gallery-item-tag">Madeira</span>
+    </a>
+    <a class="gallery-item" data-cat="eletro" href="assets/geladeira-inox.webp" target="_blank" rel="noopener">
+      <img src="assets/geladeira-inox.webp" alt="Geladeira Brastemp envelopada em inox escuro" loading="lazy" width="697" height="1280">
+      <span class="gallery-item-tag">Eletros</span>
+    </a>
+    <a class="gallery-item" data-cat="madeira" href="assets/mesa-praia.webp" target="_blank" rel="noopener">
+      <img src="assets/mesa-praia.webp" alt="Detalhe de mesa de madeira — casa de praia" loading="lazy" width="960" height="1280">
+      <span class="gallery-item-tag">Madeira</span>
+    </a>
   </div>
 </section>
 
@@ -2109,39 +2340,9 @@ filterBtns.forEach(function(btn){
     btn.classList.add('active');
     var f = btn.dataset.filter;
     document.querySelectorAll('.gallery-item').forEach(function(it){
-      it.classList.toggle('hidden', f !== 'all' && it.dataset.cat !== f);
+      var cats = (it.dataset.cat || '').split(' ');
+      it.classList.toggle('hidden', f !== 'all' && cats.indexOf(f) === -1);
     });
-  });
-});
-
-// === SLIDER ANTES/DEPOIS ===
-var slider = document.getElementById('slider'),
-    handle = document.getElementById('handle'),
-    afterImg = document.getElementById('afterImg');
-
-function setSlider(pct) {
-  pct = Math.max(0, Math.min(100, pct));
-  handle.style.left = pct + '%';
-  afterImg.style.clipPath = 'inset(0 0 0 ' + pct + '%)';
-}
-function getX(e) {
-  var rect = slider.getBoundingClientRect();
-  var x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-  return (x / rect.width) * 100;
-}
-var dragging = false;
-slider.addEventListener('mousedown', function(e){ dragging = true; setSlider(getX(e)); });
-slider.addEventListener('touchstart', function(e){ dragging = true; setSlider(getX(e)); }, { passive: true });
-window.addEventListener('mousemove', function(e){ if (dragging) setSlider(getX(e)); });
-window.addEventListener('touchmove', function(e){ if (dragging) setSlider(getX(e)); }, { passive: true });
-window.addEventListener('mouseup', function(){ dragging = false; });
-window.addEventListener('touchend', function(){ dragging = false; });
-
-document.querySelectorAll('.compare-tab').forEach(function(t){
-  t.addEventListener('click', function(){
-    document.querySelectorAll('.compare-tab').forEach(function(b){ b.classList.remove('active'); });
-    t.classList.add('active');
-    setSlider(50);
   });
 });
 

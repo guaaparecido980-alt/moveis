@@ -178,6 +178,11 @@ body {
   font-feature-settings: 'ss01';
 }
 img { max-width: 100%; display: block; }
+img.broken {
+  background: linear-gradient(135deg, var(--cream), var(--bg-deep));
+  color: transparent;
+  font-size: 0;
+}
 a { color: inherit; text-decoration: none; }
 button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
 ::selection { background: var(--brand); color: var(--bg); }
@@ -1676,7 +1681,10 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 
   <div class="video-wrap reveal">
     <div class="video-badge">Aplicação real</div>
-    <video src="aplicacao.mp4" poster="video-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Vídeo de aplicação de envelopamento em mesa"></video>
+    <video poster="video-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Vídeo de aplicação de envelopamento em mesa" onerror="this.style.display='none'; this.parentNode.querySelector('.video-fallback').style.display='block';">
+      <source src="aplicacao.mp4" type="video/mp4">
+    </video>
+    <img class="video-fallback" src="ferramentas.webp" alt="Ferramentas profissionais de aplicação" style="display:none;width:100%;height:100%;object-fit:cover;">
   </div>
 </section>
 
@@ -2285,7 +2293,21 @@ function loadTracking() {
 }
 window.addEventListener('load', function(){
   var c = localStorage.getItem('cookieConsent');
-  if (!c) setTimeout(function(){ document.getElementById('cookie').classList.add('show'); }, 1500);
+  if (!c) {
+    // Mostrar banner só depois que usuário rolou um pouco — não cobrir hero CTA
+    var shown = false;
+    var showBanner = function(){
+      if (shown) return;
+      if (window.scrollY > 300 || (Date.now() - pageLoadTime) > 8000) {
+        shown = true;
+        document.getElementById('cookie').classList.add('show');
+        window.removeEventListener('scroll', showBanner);
+      }
+    };
+    var pageLoadTime = Date.now();
+    window.addEventListener('scroll', showBanner, { passive: true });
+    setTimeout(showBanner, 8000); // fallback se não rolar
+  }
   else if (c === 'all') loadTracking();
 });
 
@@ -2293,6 +2315,14 @@ function trackWpp(origem) {
   if (window.gtag) gtag('event', 'whatsapp_click', { origem: origem });
   if (window.fbq) fbq('track', 'Contact', { source: origem });
 }
+
+// === HANDLER DE IMAGENS QUEBRADAS ===
+document.querySelectorAll('img').forEach(function(img){
+  img.addEventListener('error', function(){
+    img.classList.add('broken');
+    img.alt = '';
+  });
+});
 
 // === LOADER ===
 window.addEventListener('load', function(){

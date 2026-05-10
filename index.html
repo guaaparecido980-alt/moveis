@@ -594,6 +594,8 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 /* ============== SOBRE ============== */
 .about {
   background: var(--bg-deep);
+}
+.about-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
   align-items: center;
 }
@@ -630,7 +632,7 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 .pillar-label { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
 
 @media (max-width: 880px) {
-  .about { grid-template-columns: 1fr; gap: 48px; }
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
   .about-img { max-width: 480px; margin: 0 auto; }
   .about-pillars { grid-template-columns: 1fr; }
 }
@@ -639,6 +641,8 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 .video-section {
   background: var(--ink);
   color: var(--bg);
+}
+.video-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 64px;
@@ -723,7 +727,7 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 }
 
 @media (max-width: 880px) {
-  .video-section { grid-template-columns: 1fr; gap: 40px; }
+  .video-grid { grid-template-columns: 1fr; gap: 40px; }
   .video-wrap { max-width: 360px; }
 }
 
@@ -1782,31 +1786,33 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 
 <!-- ============== SOBRE ============== -->
 <section class="about" id="sobre">
-  <div class="about-img reveal">
-    <img src="ferramentas.webp" alt="Ferramentas profissionais de aplicação de envelopamento — Envelopar Art & Decor Curitiba" loading="lazy" width="1200" height="1600">
-  </div>
-  <div class="about-text reveal">
-    <div class="section-eyebrow">Quem somos</div>
-    <h2 class="section-title">Mais de duas décadas <em>renovando ambientes em Curitiba.</em></h2>
-    <p>A Envelopar Art &amp; Decor atua no centro de Curitiba há mais de 20 anos transformando cozinhas, escritórios, comércios e residências com a técnica do envelopamento profissional.</p>
-    <p>Não é só película: é estudo de superfície, escolha de material e acabamento milimétrico. Trabalhamos com películas de marcas líderes e atendemos toda a região metropolitana com agilidade.</p>
+  <div class="container about-grid">
+    <div class="about-img reveal">
+      <img src="ferramentas.webp" alt="Ferramentas profissionais de aplicação de envelopamento — Envelopar Art & Decor Curitiba" loading="lazy" width="1200" height="1600">
+    </div>
+    <div class="about-text reveal">
+      <div class="section-eyebrow">Quem somos</div>
+      <h2 class="section-title">Mais de duas décadas <em>renovando ambientes em Curitiba.</em></h2>
+      <p>A Envelopar Art &amp; Decor atua no centro de Curitiba há mais de 20 anos transformando cozinhas, escritórios, comércios e residências com a técnica do envelopamento profissional.</p>
+      <p>Não é só película: é estudo de superfície, escolha de material e acabamento milimétrico. Trabalhamos com películas de marcas líderes e atendemos toda a região metropolitana com agilidade.</p>
 
-    <div class="about-pillars">
-      <div>
-        <div class="pillar-num">01</div>
-        <div class="pillar-label">Películas de marcas líderes do mercado</div>
-      </div>
-      <div>
-        <div class="pillar-num">02</div>
-        <div class="pillar-label">Aplicação técnica com garantia de acabamento</div>
-      </div>
-      <div>
-        <div class="pillar-num">03</div>
-        <div class="pillar-label">Avaliação e orçamento sem custo</div>
-      </div>
-      <div>
-        <div class="pillar-num">04</div>
-        <div class="pillar-label">Atendimento em Curitiba e região</div>
+      <div class="about-pillars">
+        <div>
+          <div class="pillar-num">01</div>
+          <div class="pillar-label">Películas de marcas líderes do mercado</div>
+        </div>
+        <div>
+          <div class="pillar-num">02</div>
+          <div class="pillar-label">Aplicação técnica com garantia de acabamento</div>
+        </div>
+        <div>
+          <div class="pillar-num">03</div>
+          <div class="pillar-label">Avaliação e orçamento sem custo</div>
+        </div>
+        <div>
+          <div class="pillar-num">04</div>
+          <div class="pillar-label">Atendimento em Curitiba e região</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1814,32 +1820,34 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 
 <!-- ============== VÍDEO APLICAÇÃO ============== -->
 <section class="video-section" id="aplicacao">
-  <div class="reveal">
-    <div class="section-eyebrow">Aplicação em ação</div>
-    <h2>Mais que película. <em>Acabamento de obra fina.</em></h2>
-    <p>Cada aplicação é feita com técnica milimétrica — superfície limpa, película alinhada, sem bolhas, sem emendas aparentes. É detalhe que faz parecer móvel novo, não móvel "envelopado".</p>
-    <p>Em média, transformamos uma mesa em poucas horas. Um ambiente inteiro, em poucos dias.</p>
+  <div class="container video-grid">
+    <div class="reveal">
+      <div class="section-eyebrow">Aplicação em ação</div>
+      <h2>Mais que película. <em>Acabamento de obra fina.</em></h2>
+      <p>Cada aplicação é feita com técnica milimétrica — superfície limpa, película alinhada, sem bolhas, sem emendas aparentes. É detalhe que faz parecer móvel novo, não móvel "envelopado".</p>
+      <p>Em média, transformamos uma mesa em poucas horas. Um ambiente inteiro, em poucos dias.</p>
 
-    <div class="video-stat">
-      <div>
-        <div class="video-stat-num">~3h</div>
-        <div class="video-stat-label">Mesa completa</div>
-      </div>
-      <div>
-        <div class="video-stat-num">1–5d</div>
-        <div class="video-stat-label">Ambientes inteiros</div>
-      </div>
-      <div>
-        <div class="video-stat-num">0</div>
-        <div class="video-stat-label">Quebra-quebra</div>
+      <div class="video-stat">
+        <div>
+          <div class="video-stat-num">~3h</div>
+          <div class="video-stat-label">Mesa completa</div>
+        </div>
+        <div>
+          <div class="video-stat-num">1–5d</div>
+          <div class="video-stat-label">Ambientes inteiros</div>
+        </div>
+        <div>
+          <div class="video-stat-num">0</div>
+          <div class="video-stat-label">Quebra-quebra</div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="video-wrap reveal">
-    <div class="video-badge">Aplicação real</div>
-    <video poster="video-poster.jpg" autoplay muted loop playsinline preload="none" data-src="aplicacao.mp4" aria-label="Vídeo de aplicação de envelopamento em mesa" onerror="this.style.display='none'; this.parentNode.querySelector('.video-fallback').style.display='block';"></video>
-    <img class="video-fallback" src="ferramentas.webp" alt="Ferramentas profissionais de aplicação" style="display:none;width:100%;height:100%;object-fit:cover;">
+    <div class="video-wrap reveal">
+      <div class="video-badge">Aplicação real</div>
+      <video poster="video-poster.jpg" autoplay muted loop playsinline preload="none" data-src="aplicacao.mp4" aria-label="Vídeo de aplicação de envelopamento em mesa" onerror="this.style.display='none'; this.parentNode.querySelector('.video-fallback').style.display='block';"></video>
+      <img class="video-fallback" src="ferramentas.webp" alt="Ferramentas profissionais de aplicação" style="display:none;width:100%;height:100%;object-fit:cover;">
+    </div>
   </div>
 </section>
 
@@ -1887,13 +1895,14 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 
 <!-- ============== SERVIÇOS ============== -->
 <section id="servicos">
-  <div class="services-head reveal">
-    <div>
-      <div class="section-eyebrow">O que fazemos</div>
-      <h2 class="section-title">Tudo que pode ser <em>envelopado.</em></h2>
+  <div class="container">
+    <div class="services-head reveal">
+      <div>
+        <div class="section-eyebrow">O que fazemos</div>
+        <h2 class="section-title">Tudo que pode ser <em>envelopado.</em></h2>
+      </div>
+      <p class="section-lead">Trabalhamos com superfícies de qualquer porte — do nicho de cozinha até fachadas comerciais inteiras. Cada projeto começa com avaliação técnica gratuita.</p>
     </div>
-    <p class="section-lead">Trabalhamos com superfícies de qualquer porte — do nicho de cozinha até fachadas comerciais inteiras. Cada projeto começa com avaliação técnica gratuita.</p>
-  </div>
 
   <div class="services-grid reveal">
     <div class="service">
@@ -1962,6 +1971,7 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
         <a href="https://wa.me/5541995871619?text=Quero%20envelopar%20box." class="service-link" onclick="trackWpp('servico_box')" target="_blank" rel="noopener">Saiba mais →</a>
       </div>
     </div>
+  </div>
   </div>
 </section>
 
@@ -2050,20 +2060,21 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 
 <!-- ============== GALERIA ============== -->
 <section id="galeria">
-  <div class="gallery-head reveal">
-    <div>
-      <div class="section-eyebrow">Trabalhos realizados</div>
-      <h2 class="section-title">Cada projeto, <em>uma transformação.</em></h2>
+  <div class="container">
+    <div class="gallery-head reveal">
+      <div>
+        <div class="section-eyebrow">Trabalhos realizados</div>
+        <h2 class="section-title">Cada projeto, <em>uma transformação.</em></h2>
+      </div>
+      <div class="gallery-filters">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="marmore">Mármore</button>
+        <button class="filter-btn" data-filter="madeira">Madeira</button>
+        <button class="filter-btn" data-filter="cinza">Cinza</button>
+        <button class="filter-btn" data-filter="eletro">Eletros</button>
+        <button class="filter-btn" data-filter="comercial">Comercial</button>
+      </div>
     </div>
-    <div class="gallery-filters">
-      <button class="filter-btn active" data-filter="all">Todos</button>
-      <button class="filter-btn" data-filter="marmore">Mármore</button>
-      <button class="filter-btn" data-filter="madeira">Madeira</button>
-      <button class="filter-btn" data-filter="cinza">Cinza</button>
-      <button class="filter-btn" data-filter="eletro">Eletros</button>
-      <button class="filter-btn" data-filter="comercial">Comercial</button>
-    </div>
-  </div>
 
   <div class="gallery-grid reveal">
     <a class="gallery-item" data-cat="madeira" href="cozinha-madeira.webp" target="_blank" rel="noopener">
@@ -2102,6 +2113,7 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
       <img src="mesa-praia.webp" alt="Detalhe de mesa de madeira — casa de praia" loading="lazy" width="960" height="1280">
       <span class="gallery-item-tag">Madeira</span>
     </a>
+  </div>
   </div>
 </section>
 
@@ -2185,10 +2197,11 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 
 <!-- ============== DEPOIMENTOS ============== -->
 <section id="depoimentos">
-  <div class="reveal" style="text-align:center;max-width:720px;margin:0 auto;">
-    <div class="section-eyebrow center">O que dizem</div>
-    <h2 class="section-title center">Avaliação <em>5.0 no Google.</em></h2>
-  </div>
+  <div class="container">
+    <div class="reveal" style="text-align:center;max-width:720px;margin:0 auto;">
+      <div class="section-eyebrow center">O que dizem</div>
+      <h2 class="section-title center">Avaliação <em>5.0 no Google.</em></h2>
+    </div>
 
   <div class="testi-grid reveal">
     <div class="testi">
@@ -2225,14 +2238,16 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
       </div>
     </div>
   </div>
+  </div>
 </section>
 
 <!-- ============== FAQ ============== -->
 <section class="faq" id="faq">
-  <div class="reveal">
-    <div class="section-eyebrow">Perguntas frequentes</div>
-    <h2 class="section-title">Tirando suas <em>dúvidas.</em></h2>
-  </div>
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">Perguntas frequentes</div>
+      <h2 class="section-title">Tirando suas <em>dúvidas.</em></h2>
+    </div>
 
   <div class="faq-wrap reveal">
     <div>
@@ -2286,6 +2301,7 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
         <div class="faq-a">Curitiba e toda a região metropolitana — São José dos Pinhais, Pinhais, Colombo, Araucária e Campo Largo. Para cidades fora da RMC, consulte disponibilidade.</div>
       </div>
     </div>
+  </div>
   </div>
 </section>
 

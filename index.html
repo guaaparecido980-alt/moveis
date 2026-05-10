@@ -349,21 +349,22 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   padding: 140px var(--pad) 80px;
   position: relative;
   display: grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap: 80px;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 64px;
   align-items: center;
   overflow: hidden;
 }
 .hero::before {
   content: '';
   position: absolute;
-  top: 10%; right: -15%;
+  top: 0; right: -10%;
   width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(160,25,11,.08) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(160,25,11,.06) 0%, transparent 60%);
   border-radius: 50%;
   pointer-events: none;
   filter: blur(40px);
 }
+.hero-text { position: relative; z-index: 2; }
 
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 12px;
@@ -371,7 +372,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--brand);
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   opacity: 0; animation: fadeUp .8s .8s forwards;
 }
 .hero-eyebrow::before {
@@ -381,9 +382,9 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
 .hero h1 {
   font-family: var(--serif);
-  font-size: clamp(38px, 7.5vw, 92px);
+  font-size: clamp(38px, 5.6vw, 80px);
   font-weight: 300;
-  line-height: .98;
+  line-height: 1;
   letter-spacing: -.03em;
   margin-bottom: 28px;
   color: var(--ink);
@@ -396,17 +397,128 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 }
 
 .hero-sub {
-  font-size: clamp(16px, 1.5vw, 19px);
+  font-size: clamp(15px, 1.15vw, 17px);
   line-height: 1.6;
   color: var(--ink-soft);
-  max-width: 540px;
-  margin-bottom: 40px;
+  max-width: 480px;
+  margin-bottom: 36px;
   opacity: 0; animation: fadeUp .9s 1.15s forwards;
 }
 
 .hero-cta {
-  display: flex; gap: 16px; flex-wrap: wrap;
+  display: flex; gap: 14px; flex-wrap: wrap;
   opacity: 0; animation: fadeUp .9s 1.3s forwards;
+}
+
+.hero-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 20px; margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+  opacity: 0; animation: fadeUp .9s 1.5s forwards;
+  max-width: 480px;
+}
+.stat-num {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.4vw, 42px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--brand);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.stat-label {
+  font-size: 11.5px;
+  color: var(--ink-mute);
+  margin-top: 6px;
+  letter-spacing: .04em;
+  line-height: 1.3;
+}
+
+/* HERO VISUAL — collage assimétrico */
+.hero-visual {
+  position: relative;
+  aspect-ratio: 1/1.1;
+  opacity: 0; animation: fadeUp 1s 1.2s forwards;
+}
+.hero-img {
+  position: absolute;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--bg-deep);
+}
+.hero-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-img-main {
+  top: 0; right: 0;
+  width: 78%;
+  height: 88%;
+  box-shadow: var(--shadow-deep);
+  z-index: 1;
+}
+.hero-img-second {
+  bottom: 0; left: 0;
+  width: 56%;
+  height: 42%;
+  border-radius: var(--r-md);
+  box-shadow: 0 12px 40px rgba(14,12,11,.18);
+  z-index: 2;
+  border: 6px solid var(--bg);
+}
+
+.hero-badge {
+  position: absolute;
+  top: 50%;
+  right: -8px;
+  transform: translateY(-30%);
+  background: var(--bg);
+  padding: 16px 20px;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-deep);
+  display: flex; align-items: center; gap: 12px;
+  z-index: 3;
+  border: 1px solid var(--line);
+}
+.hero-badge-stars { color: var(--brand); font-size: 13px; letter-spacing: 2px; }
+.hero-badge-text { font-size: 12px; color: var(--ink-soft); line-height: 1.3; }
+.hero-badge-text strong { color: var(--ink); display: block; font-size: 13px; margin-bottom: 2px; }
+
+@media (max-width: 1100px) {
+  .hero { grid-template-columns: 1fr; gap: 48px; padding-top: 110px; }
+  .hero-visual {
+    max-width: 520px;
+    margin: 0 auto;
+    aspect-ratio: 1/1;
+    width: 100%;
+  }
+  .hero-stats { max-width: 100%; gap: 16px; }
+  .hero-badge {
+    position: absolute;
+    right: 12px;
+    top: auto;
+    bottom: 12px;
+    transform: none;
+    z-index: 4;
+  }
+  .hero-img-second {
+    width: 50%;
+    height: 38%;
+  }
+}
+@media (max-width: 480px) {
+  .hero-visual { aspect-ratio: 4/5; }
+  .hero-img-second { width: 55%; height: 36%; border-width: 4px; }
+  .hero-badge {
+    padding: 10px 14px;
+    bottom: 8px;
+    right: 8px;
+  }
+  .hero-badge-text { font-size: 10.5px; }
+  .hero-badge-text strong { font-size: 11.5px; }
+  .hero-badge-stars { font-size: 11px; }
 }
 
 .btn-primary {
@@ -440,69 +552,6 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   background: transparent;
 }
 .btn-secondary:hover { background: var(--ink); color: var(--bg); }
-
-.hero-stats {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 24px; margin-top: 64px;
-  padding-top: 32px;
-  border-top: 1px solid var(--line);
-  opacity: 0; animation: fadeUp .9s 1.5s forwards;
-}
-.stat-num {
-  font-family: var(--serif);
-  font-size: clamp(28px, 4.2vw, 52px);
-  font-weight: 400;
-  font-style: italic;
-  color: var(--brand);
-  line-height: 1;
-  letter-spacing: -.02em;
-}
-.stat-label {
-  font-size: 12px;
-  color: var(--ink-mute);
-  margin-top: 8px;
-  letter-spacing: .04em;
-}
-
-.hero-visual {
-  position: relative;
-  aspect-ratio: 4/5;
-  opacity: 0; animation: fadeUp 1s 1.2s forwards;
-}
-.hero-img {
-  width: 100%; height: 100%;
-  border-radius: var(--r-lg);
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--shadow-deep);
-  background: var(--bg-deep);
-}
-.hero-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.hero-badge {
-  position: absolute;
-  bottom: 32px; left: -32px;
-  background: var(--bg);
-  padding: 18px 22px;
-  border-radius: var(--r-md);
-  box-shadow: var(--shadow-deep);
-  display: flex; align-items: center; gap: 14px;
-  border: 1px solid var(--line);
-}
-.hero-badge-stars { color: var(--brand); font-size: 14px; letter-spacing: 2px; }
-.hero-badge-text { font-size: 13px; color: var(--ink-soft); }
-.hero-badge-text strong { color: var(--ink); display: block; font-size: 14px; }
-
-@media (max-width: 880px) {
-  .hero { grid-template-columns: 1fr; gap: 48px; padding-top: 110px; }
-  .hero-visual { max-width: 480px; margin: 0 auto; }
-  .hero-badge { left: 16px; bottom: 16px; padding: 14px 18px; }
-  .hero-stats { gap: 16px; }
-}
 
 /* ============== SECTIONS ============== */
 section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
@@ -706,9 +755,15 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 .detail-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(14,12,11,.85) 0%, rgba(14,12,11,0) 50%);
-  display: flex; align-items: end;
-  padding: 24px;
+  background: linear-gradient(to top,
+    rgba(14,12,11,.95) 0%,
+    rgba(14,12,11,.7) 30%,
+    rgba(14,12,11,.2) 65%,
+    rgba(14,12,11,0) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: 28px;
   pointer-events: none;
 }
 .detail-card-overlay h4 {
@@ -790,61 +845,81 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
+  gap: 16px;
   border-radius: var(--r-lg);
-  overflow: hidden;
 }
 .service {
   background: var(--bg);
-  padding: 40px 32px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
   display: flex; flex-direction: column;
   position: relative;
   transition: var(--t-med);
-  min-height: 320px;
+  overflow: hidden;
+  min-height: 380px;
 }
-.service:hover { background: var(--cream); }
-.service-num {
-  font-family: var(--serif); font-style: italic;
-  font-size: 14px; color: var(--brand);
-  margin-bottom: auto;
+.service:hover {
+  border-color: var(--brand);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-deep);
 }
-.service-icon {
-  width: 56px; height: 56px;
-  border-radius: 50%;
+.service-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  position: relative;
   background: var(--bg-deep);
-  display: flex; align-items: center; justify-content: center;
-  margin: 32px 0 20px;
-  transition: var(--t-med);
 }
-.service:hover .service-icon { background: var(--brand); }
-.service:hover .service-icon svg { stroke: var(--bg); }
-.service-icon svg { width: 26px; height: 26px; stroke: var(--ink); stroke-width: 1.4; fill: none; transition: var(--t-fast); }
-
+.service-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--t-slow);
+  filter: saturate(.95);
+}
+.service:hover .service-img img { transform: scale(1.06); filter: saturate(1.05); }
+.service-num {
+  position: absolute;
+  top: 16px; left: 16px;
+  font-family: var(--serif); font-style: italic;
+  font-size: 13px; color: var(--bg);
+  background: rgba(14,12,11,.6);
+  backdrop-filter: blur(8px);
+  padding: 4px 12px;
+  border-radius: 100px;
+  z-index: 2;
+}
+.service-body {
+  padding: 28px;
+  display: flex; flex-direction: column;
+  flex: 1;
+}
 .service h3 {
   font-family: var(--serif);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 400;
   letter-spacing: -.01em;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .service p {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--ink-soft);
   line-height: 1.55;
   margin-bottom: 20px;
+  flex: 1;
 }
 .service-link {
   font-size: 13px; font-weight: 500;
   color: var(--brand);
   display: inline-flex; align-items: center; gap: 6px;
   transition: gap var(--t-fast);
+  margin-top: auto;
 }
 .service:hover .service-link { gap: 12px; }
 
 @media (max-width: 880px) {
   .services-grid { grid-template-columns: 1fr; }
+  .service { min-height: auto; }
 }
 @media (min-width: 881px) and (max-width: 1100px) {
   .services-grid { grid-template-columns: 1fr 1fr; }
@@ -1370,8 +1445,43 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
   background: linear-gradient(135deg, #1f1816, #0e0c0b);
   position: relative;
   display: flex; align-items: center; justify-content: center;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
 }
-.location-map iframe { width: 100%; height: 100%; border: none; filter: grayscale(.3) contrast(.95); }
+.location-map iframe {
+  width: 100%; height: 100%;
+  border: none;
+  filter: grayscale(.3) contrast(.95);
+  position: relative;
+  z-index: 2;
+}
+.location-map-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 32px;
+  text-align: center;
+  color: rgba(245,236,220,.6);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(160,25,11,.08) 0%, transparent 60%),
+    linear-gradient(135deg, #1f1816, #0e0c0b);
+  z-index: 1;
+}
+.location-map-fallback svg { color: var(--brand-soft); margin-bottom: 12px; }
+.location-map-fallback strong { color: var(--bg); font-size: 16px; font-weight: 500; }
+.location-map-fallback span { font-size: 14px; }
+.location-map-fallback em {
+  font-style: italic;
+  font-family: var(--serif);
+  color: var(--brand-soft);
+  margin-top: 8px;
+  font-size: 13px;
+}
 
 @media (max-width: 880px) {
   .location { grid-template-columns: 1fr; }
@@ -1625,7 +1735,7 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 
 <!-- ============== HERO ============== -->
 <header class="hero">
-  <div>
+  <div class="hero-text">
     <div class="hero-eyebrow">Envelopamento profissional · Curitiba</div>
     <h1>Renove sem<br>reforma. <em>Em dias,<br>não em meses.</em></h1>
     <p class="hero-sub">Envelopamos móveis, paredes, portas e eletrodomésticos com películas de alto padrão. Economia de até 70% comparado a uma reforma — sem sujeira, sem entulho, sem transtorno.</p>
@@ -1654,8 +1764,11 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
   </div>
 
   <div class="hero-visual">
-    <div class="hero-img">
+    <div class="hero-img hero-img-main">
       <img src="hero-mesa-marmore.webp" alt="Mesa de jantar envelopada em mármore com veios cobre — Curitiba" loading="eager" fetchpriority="high" width="800" height="1000">
+    </div>
+    <div class="hero-img hero-img-second">
+      <img src="hero-secondary.webp" alt="Sala de jantar com vista do mar — envelopamento residencial" loading="eager" width="600" height="450">
     </div>
     <div class="hero-badge">
       <div class="hero-badge-stars">★★★★★</div>
@@ -1784,46 +1897,70 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 
   <div class="services-grid reveal">
     <div class="service">
-      <div class="service-num">01</div>
-      <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
-      <h3>Móveis</h3>
-      <p>Cozinhas, armários, mesas, balcões e racks. Renove sem trocar a estrutura.</p>
-      <a href="https://wa.me/5541995871619?text=Quero%20envelopar%20m%C3%B3veis." class="service-link" onclick="trackWpp('servico_moveis')" target="_blank" rel="noopener">Saiba mais →</a>
+      <div class="service-img">
+        <span class="service-num">01</span>
+        <img src="svc-moveis.webp" alt="Móvel envelopado em mármore" loading="lazy" width="800" height="600">
+      </div>
+      <div class="service-body">
+        <h3>Móveis</h3>
+        <p>Cozinhas, armários, mesas, balcões e racks. Renove sem trocar a estrutura.</p>
+        <a href="https://wa.me/5541995871619?text=Quero%20envelopar%20m%C3%B3veis." class="service-link" onclick="trackWpp('servico_moveis')" target="_blank" rel="noopener">Saiba mais →</a>
+      </div>
     </div>
     <div class="service">
-      <div class="service-num">02</div>
-      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M3 21V3h18v18M3 9h18M9 3v18"/></svg></div>
-      <h3>Paredes &amp; Tetos</h3>
-      <p>Texturas, padrões e revestimentos decorativos sem quebra-quebra.</p>
-      <a href="https://wa.me/5541995871619?text=Quero%20envelopar%20parede." class="service-link" onclick="trackWpp('servico_paredes')" target="_blank" rel="noopener">Saiba mais →</a>
+      <div class="service-img">
+        <span class="service-num">02</span>
+        <img src="svc-paredes.webp" alt="Parede comercial envelopada" loading="lazy" width="800" height="600">
+      </div>
+      <div class="service-body">
+        <h3>Paredes &amp; Tetos</h3>
+        <p>Texturas, padrões e revestimentos decorativos sem quebra-quebra.</p>
+        <a href="https://wa.me/5541995871619?text=Quero%20envelopar%20parede." class="service-link" onclick="trackWpp('servico_paredes')" target="_blank" rel="noopener">Saiba mais →</a>
+      </div>
     </div>
     <div class="service">
-      <div class="service-num">03</div>
-      <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="1"/><circle cx="15" cy="12" r="1"/></svg></div>
-      <h3>Portas &amp; Caixas</h3>
-      <p>Portas internas, de armário, batentes e caixilhos com novo acabamento.</p>
-      <a href="https://wa.me/5541995871619?text=Quero%20envelopar%20portas." class="service-link" onclick="trackWpp('servico_portas')" target="_blank" rel="noopener">Saiba mais →</a>
+      <div class="service-img">
+        <span class="service-num">03</span>
+        <img src="svc-portas.webp" alt="Porta envelopada em mármore" loading="lazy" width="800" height="600">
+      </div>
+      <div class="service-body">
+        <h3>Portas &amp; Caixas</h3>
+        <p>Portas internas, de armário, batentes e caixilhos com novo acabamento.</p>
+        <a href="https://wa.me/5541995871619?text=Quero%20envelopar%20portas." class="service-link" onclick="trackWpp('servico_portas')" target="_blank" rel="noopener">Saiba mais →</a>
+      </div>
     </div>
     <div class="service">
-      <div class="service-num">04</div>
-      <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18M12 3v18"/></svg></div>
-      <h3>Pisos</h3>
-      <p>Películas de alta resistência para vinil, madeira e cerâmica.</p>
-      <a href="https://wa.me/5541995871619?text=Quero%20envelopar%20piso." class="service-link" onclick="trackWpp('servico_pisos')" target="_blank" rel="noopener">Saiba mais →</a>
+      <div class="service-img">
+        <span class="service-num">04</span>
+        <img src="svc-pisos.webp" alt="Ambiente com piso de madeira" loading="lazy" width="800" height="600">
+      </div>
+      <div class="service-body">
+        <h3>Pisos</h3>
+        <p>Películas de alta resistência para vinil, madeira e cerâmica.</p>
+        <a href="https://wa.me/5541995871619?text=Quero%20envelopar%20piso." class="service-link" onclick="trackWpp('servico_pisos')" target="_blank" rel="noopener">Saiba mais →</a>
+      </div>
     </div>
     <div class="service">
-      <div class="service-num">05</div>
-      <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M5 8h14M9 5h2M9 13h2"/></svg></div>
-      <h3>Eletrodomésticos</h3>
-      <p>Geladeiras, micro-ondas, fogões. Visual novo sem trocar o aparelho.</p>
-      <a href="https://wa.me/5541995871619?text=Quero%20envelopar%20geladeira." class="service-link" onclick="trackWpp('servico_eletro')" target="_blank" rel="noopener">Saiba mais →</a>
+      <div class="service-img">
+        <span class="service-num">05</span>
+        <img src="svc-eletro.webp" alt="Geladeira envelopada em inox escuro" loading="lazy" width="800" height="600">
+      </div>
+      <div class="service-body">
+        <h3>Eletrodomésticos</h3>
+        <p>Geladeiras, micro-ondas, fogões. Visual novo sem trocar o aparelho.</p>
+        <a href="https://wa.me/5541995871619?text=Quero%20envelopar%20geladeira." class="service-link" onclick="trackWpp('servico_eletro')" target="_blank" rel="noopener">Saiba mais →</a>
+      </div>
     </div>
     <div class="service">
-      <div class="service-num">06</div>
-      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M3 5h18v14H3z"/><path d="M3 5l9 7 9-7"/></svg></div>
-      <h3>Box &amp; Vidros</h3>
-      <p>Box de banheiro, divisórias e vidros decorativos com película jateada.</p>
-      <a href="https://wa.me/5541995871619?text=Quero%20envelopar%20box." class="service-link" onclick="trackWpp('servico_box')" target="_blank" rel="noopener">Saiba mais →</a>
+      <div class="service-img">
+        <span class="service-num">06</span>
+        <img src="svc-box.webp" alt="Superfície envelopada com película jateada" loading="lazy" width="800" height="600">
+      </div>
+      <div class="service-body">
+        <h3>Box &amp; Vidros</h3>
+        <p>Box de banheiro, divisórias e vidros decorativos com película jateada.</p>
+        <a href="https://wa.me/5541995871619?text=Quero%20envelopar%20box." class="service-link" onclick="trackWpp('servico_box')" target="_blank" rel="noopener">Saiba mais →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1873,7 +2010,7 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 
     <div class="details-grid reveal">
       <div class="detail-card">
-        <img src="mesa-marmore.webp" alt="Mesa de jantar em mármore com veios cobre" loading="lazy" width="1200" height="1600">
+        <img src="hero-mesa-marmore.webp" alt="Mesa de jantar em mármore com veios cobre" loading="lazy" width="800" height="1000">
         <div class="detail-card-overlay">
           <h4>Mármore com veios</h4>
           <p>Película premium com alinhamento de padrão</p>
@@ -1933,8 +2070,8 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
       <img src="cozinha-madeira.webp" alt="Bancada de cozinha envelopada em madeira clara" loading="lazy" width="960" height="1280">
       <span class="gallery-item-tag">Madeira</span>
     </a>
-    <a class="gallery-item" data-cat="marmore" href="mesa-marmore.webp" target="_blank" rel="noopener">
-      <img src="mesa-marmore.webp" alt="Mesa de jantar em mármore com veios cobre" loading="lazy" width="720" height="1280">
+    <a class="gallery-item" data-cat="marmore" href="hero-mesa-marmore.webp" target="_blank" rel="noopener">
+      <img src="hero-mesa-marmore.webp" alt="Mesa de jantar em mármore com veios cobre" loading="lazy" width="800" height="1000">
       <span class="gallery-item-tag">Mármore</span>
     </a>
     <a class="gallery-item" data-cat="madeira" href="mesa-praia.webp" target="_blank" rel="noopener">
@@ -2202,15 +2339,20 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
     </div>
   </div>
 
-  <div class="location-map">
+  <a class="location-map" href="https://www.google.com/maps/place/Rua+XV+de+Novembro,+543+-+Centro,+Curitiba+-+PR" target="_blank" rel="noopener" aria-label="Abrir endereço no Google Maps">
     <iframe
-      src="https://www.google.com/maps?q=Rua+XV+de+Novembro+543+Curitiba+PR&output=embed"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3601.045!2d-49.2685!3d-25.4296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sR.+XV+de+Novembro%2C+543+-+Centro%2C+Curitiba+-+PR!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr"
       loading="lazy"
       allowfullscreen
       referrerpolicy="no-referrer-when-downgrade"
-      title="Localização Envelopar Art & Decor">
-    </iframe>
-  </div>
+      title="Localização Envelopar Art & Decor — Rua XV de Novembro, 543, Centro, Curitiba"></iframe>
+    <div class="location-map-fallback">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <strong>Rua XV de Novembro, 543</strong>
+      <span>Centro · Curitiba — PR</span>
+      <em>Clique para abrir no Google Maps</em>
+    </div>
+  </a>
 </section>
 
 <!-- ============== CTA FINAL ============== -->

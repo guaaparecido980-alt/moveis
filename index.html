@@ -44,6 +44,9 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://connect.facebook.net">
 
+<!-- PRELOAD do hero crítico -->
+<link rel="preload" as="image" href="hero-mesa-marmore.webp" fetchpriority="high">
+
 <!-- FONTES — Fraunces (display editorial) + Inter Tight (body) -->
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -167,7 +170,19 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 80px;
+}
+
+/* Acessibilidade: focus visível para teclado */
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 body {
   font-family: var(--sans);
   font-size: 16px;
@@ -176,6 +191,10 @@ body {
   background: var(--bg);
   overflow-x: hidden;
   font-feature-settings: 'ss01';
+}
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
 }
 img { max-width: 100%; display: block; }
 img.broken {
@@ -362,7 +381,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
 .hero h1 {
   font-family: var(--serif);
-  font-size: clamp(44px, 7.2vw, 92px);
+  font-size: clamp(38px, 7.5vw, 92px);
   font-weight: 300;
   line-height: .98;
   letter-spacing: -.03em;
@@ -431,7 +450,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 }
 .stat-num {
   font-family: var(--serif);
-  font-size: clamp(34px, 4.2vw, 52px);
+  font-size: clamp(28px, 4.2vw, 52px);
   font-weight: 400;
   font-style: italic;
   color: var(--brand);
@@ -503,7 +522,7 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 
 .section-title {
   font-family: var(--serif);
-  font-size: clamp(36px, 5vw, 60px);
+  font-size: clamp(32px, 5vw, 60px);
   font-weight: 300;
   line-height: 1.05;
   letter-spacing: -.025em;
@@ -1059,10 +1078,11 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 
 @media (max-width: 880px) {
   .gallery-grid { grid-template-columns: 1fr 1fr; }
-  .gallery-item:nth-child(3n+2) { margin-top: 0; }
+  .gallery-item:nth-child(3n+2) { margin-top: 0; aspect-ratio: 4/5; }
 }
 @media (max-width: 480px) {
   .gallery-grid { grid-template-columns: 1fr; }
+  .gallery-item, .gallery-item:nth-child(3n+2) { aspect-ratio: 4/3; }
 }
 
 /* ============== CALCULADORA ============== */
@@ -1172,7 +1192,12 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 }
 
 @media (max-width: 880px) {
-  .calc-wrap { grid-template-columns: 1fr; gap: 32px; }
+  .calc-wrap {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    display: flex;
+    flex-direction: column-reverse; /* resultado em cima em mobile */
+  }
   .calc-result { position: static; padding: 32px 28px; }
   .calc-form { padding: 28px; }
   .calc-options.three { grid-template-columns: 1fr 1fr; }
@@ -1371,7 +1396,7 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 }
 .cta-final h2 {
   font-family: var(--serif);
-  font-size: clamp(40px, 6vw, 72px);
+  font-size: clamp(34px, 6vw, 72px);
   font-weight: 300;
   line-height: 1.05;
   letter-spacing: -.025em;
@@ -1477,6 +1502,17 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
   0%, 100% { box-shadow: 0 8px 24px rgba(37,211,102,.4); }
   50% { box-shadow: 0 8px 24px rgba(37,211,102,.7), 0 0 0 16px rgba(37,211,102,0); }
 }
+@media (max-width: 480px) {
+  .wpp-float {
+    width: 52px; height: 52px;
+    bottom: 16px; right: 16px;
+  }
+  .wpp-float svg { width: 26px; height: 26px; }
+  /* Quando cookie banner aberto, o WhatsApp sobe pra não conflitar */
+  body.cookie-open .wpp-float {
+    bottom: 180px;
+  }
+}
 
 /* ============== COOKIE BANNER ============== */
 .cookie {
@@ -1516,7 +1552,15 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 .cookie-reject:hover { border-color: var(--bg); }
 
 @media (max-width: 480px) {
-  .cookie { left: 12px; right: 12px; bottom: 96px; max-width: none; }
+  .cookie {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    max-width: none;
+    padding: 18px;
+  }
+  .cookie p { font-size: 12px; margin-bottom: 12px; }
+  .cookie-btn { font-size: 11px; padding: 9px 14px; }
 }
 
 /* ============== SCROLL REVEAL ============== */
@@ -1611,7 +1655,7 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 
   <div class="hero-visual">
     <div class="hero-img">
-      <img src="mesa-marmore.webp" alt="Mesa de jantar envelopada em mármore com veios cobre — Curitiba" loading="eager" fetchpriority="high" width="1200" height="1600">
+      <img src="hero-mesa-marmore.webp" alt="Mesa de jantar envelopada em mármore com veios cobre — Curitiba" loading="eager" fetchpriority="high" width="800" height="1000">
     </div>
     <div class="hero-badge">
       <div class="hero-badge-stars">★★★★★</div>
@@ -1681,9 +1725,7 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 
   <div class="video-wrap reveal">
     <div class="video-badge">Aplicação real</div>
-    <video poster="video-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Vídeo de aplicação de envelopamento em mesa" onerror="this.style.display='none'; this.parentNode.querySelector('.video-fallback').style.display='block';">
-      <source src="aplicacao.mp4" type="video/mp4">
-    </video>
+    <video poster="video-poster.jpg" autoplay muted loop playsinline preload="none" data-src="aplicacao.mp4" aria-label="Vídeo de aplicação de envelopamento em mesa" onerror="this.style.display='none'; this.parentNode.querySelector('.video-fallback').style.display='block';"></video>
     <img class="video-fallback" src="ferramentas.webp" alt="Ferramentas profissionais de aplicação" style="display:none;width:100%;height:100%;object-fit:cover;">
   </div>
 </section>
@@ -2267,6 +2309,7 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
 function cookieChoice(accept) {
   localStorage.setItem('cookieConsent', accept ? 'all' : 'essential');
   document.getElementById('cookie').classList.remove('show');
+  document.body.classList.remove('cookie-open');
   if (accept) loadTracking();
 }
 function loadTracking() {
@@ -2294,19 +2337,19 @@ function loadTracking() {
 window.addEventListener('load', function(){
   var c = localStorage.getItem('cookieConsent');
   if (!c) {
-    // Mostrar banner só depois que usuário rolou um pouco — não cobrir hero CTA
     var shown = false;
+    var pageLoadTime = Date.now();
     var showBanner = function(){
       if (shown) return;
       if (window.scrollY > 300 || (Date.now() - pageLoadTime) > 8000) {
         shown = true;
         document.getElementById('cookie').classList.add('show');
+        document.body.classList.add('cookie-open');
         window.removeEventListener('scroll', showBanner);
       }
     };
-    var pageLoadTime = Date.now();
     window.addEventListener('scroll', showBanner, { passive: true });
-    setTimeout(showBanner, 8000); // fallback se não rolar
+    setTimeout(showBanner, 8000);
   }
   else if (c === 'all') loadTracking();
 });
@@ -2314,6 +2357,25 @@ window.addEventListener('load', function(){
 function trackWpp(origem) {
   if (window.gtag) gtag('event', 'whatsapp_click', { origem: origem });
   if (window.fbq) fbq('track', 'Contact', { source: origem });
+}
+
+// === LAZY LOAD VÍDEO (não baixa 3MB até entrar no viewport) ===
+var videoEl = document.querySelector('.video-wrap video');
+if (videoEl && videoEl.dataset.src) {
+  var videoObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) {
+        var v = e.target;
+        if (!v.src) {
+          v.src = v.dataset.src;
+          v.load();
+          v.play().catch(function(){ /* autoplay pode falhar em alguns mobile, fallback em silêncio */ });
+        }
+        videoObs.unobserve(v);
+      }
+    });
+  }, { rootMargin: '200px 0px' });
+  videoObs.observe(videoEl);
 }
 
 // === HANDLER DE IMAGENS QUEBRADAS ===
@@ -2324,10 +2386,24 @@ document.querySelectorAll('img').forEach(function(img){
   });
 });
 
-// === LOADER ===
-window.addEventListener('load', function(){
-  setTimeout(function(){ document.getElementById('loader').classList.add('hide'); }, 1900);
-});
+// === LOADER (esconde rápido após page load) ===
+var loaderShown = Date.now();
+function hideLoader() {
+  // Garantir mínimo 800ms pra evitar flash, máximo controlado pelo load event
+  var elapsed = Date.now() - loaderShown;
+  var remaining = Math.max(0, 800 - elapsed);
+  setTimeout(function(){
+    var l = document.getElementById('loader');
+    if (l) l.classList.add('hide');
+  }, remaining);
+}
+if (document.readyState === 'complete') hideLoader();
+else window.addEventListener('load', hideLoader);
+// Fallback: nunca deixar o loader travado, esconde após 4s
+setTimeout(function(){
+  var l = document.getElementById('loader');
+  if (l && !l.classList.contains('hide')) l.classList.add('hide');
+}, 4000);
 
 // === NAV ===
 var lastScroll = 0, nav = document.getElementById('nav');
@@ -2343,11 +2419,13 @@ var burger = document.getElementById('burger'), navLinks = document.getElementBy
 burger.addEventListener('click', function(){
   burger.classList.toggle('open');
   navLinks.classList.toggle('open');
+  document.body.classList.toggle('no-scroll', navLinks.classList.contains('open'));
 });
 navLinks.querySelectorAll('a').forEach(function(a){
   a.addEventListener('click', function(){
     burger.classList.remove('open');
     navLinks.classList.remove('open');
+    document.body.classList.remove('no-scroll');
   });
 });
 

@@ -327,25 +327,64 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   background: rgba(245,236,220,.9); margin: 6px auto;
   transition: var(--t-fast);
 }
+.nav-burger.open span { background: var(--ink); }
 .nav-burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
 .nav-burger.open span:nth-child(2) { opacity: 0; }
 .nav-burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
+/* Backdrop escuro atrás do menu mobile */
+.nav-backdrop {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(14,12,11,.55);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 98;
+  opacity: 0;
+  transition: opacity var(--t-med);
+}
+.nav-backdrop.open {
+  display: block;
+  opacity: 1;
+}
+
 @media (max-width: 880px) {
   .nav-links {
     position: fixed; top: 0; right: 0;
-    width: 80%; max-width: 360px; height: 100vh; height: 100dvh;
+    width: 85%; max-width: 380px; height: 100vh; height: 100dvh;
     background: var(--bg);
     flex-direction: column;
-    padding: 100px 40px 40px;
+    align-items: flex-start;
+    padding: 88px 32px 40px;
     transform: translateX(100%);
     transition: transform var(--t-med);
-    box-shadow: var(--shadow-deep);
-    gap: 24px;
+    box-shadow: -20px 0 60px rgba(14,12,11,.25);
+    gap: 4px;
+    z-index: 99;
+    overflow-y: auto;
   }
   .nav-links.open { transform: translateX(0); }
-  .nav-links a { font-size: 18px; font-family: var(--serif); }
-  .nav-cta-mobile { display: inline-flex !important; margin-top: 24px; }
+  .nav-links a {
+    font-size: 22px;
+    font-family: var(--serif);
+    color: var(--ink);
+    width: 100%;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-links a:hover { color: var(--brand); }
+  .nav-links a::after { display: none; }
+  .nav-cta-mobile {
+    display: inline-flex !important;
+    margin-top: 32px;
+    background: var(--ink) !important;
+    color: var(--bg) !important;
+    border-bottom: none !important;
+    padding: 14px 28px !important;
+    font-family: var(--sans) !important;
+    font-size: 14px !important;
+    width: auto !important;
+  }
   .nav-cta-desktop { display: none; }
   .nav-burger { display: block; }
 }
@@ -565,41 +604,59 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   }
 }
 @media (max-width: 600px) {
-  .hero { padding: 88px 22px 56px; gap: 40px; }
+  .hero { padding: 88px 22px 56px; gap: 32px; }
   .hero h1 { font-size: clamp(30px, 9vw, 42px); }
   .hero-sub { font-size: 14.5px; line-height: 1.55; }
+  /* Reset completo do layout absoluto do hero-visual no mobile */
   .hero-visual {
-    aspect-ratio: 4/3;
-    max-width: 380px;
+    aspect-ratio: auto;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    margin: 0;
     overflow: visible;
   }
-  /* No mobile mostramos só a imagem principal, em formato landscape limpo */
   .hero-img-main {
+    position: relative;
     width: 100%;
-    height: 100%;
-    top: 0; right: 0; left: 0; bottom: 0;
+    height: auto;
+    aspect-ratio: 4/3;
+    top: auto; right: auto; left: auto; bottom: auto;
     transform: translateY(0);
-    box-shadow: 0 20px 50px -10px rgba(14,12,11,.25);
+    box-shadow: 0 20px 50px -10px rgba(14,12,11,.18);
     border-radius: var(--r-md);
+    overflow: hidden;
   }
-  /* Esconde a imagem secundária e o badge no mobile pra evitar overlap quebrado */
+  .hero-img-main img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
   .hero-img-second { display: none; }
+  /* Badge sai do empilhamento absoluto e vira um cartão normal embaixo da foto */
   .hero-badge {
     position: relative;
     right: auto; left: auto; top: auto; bottom: auto;
-    transform: none;
-    margin-top: 20px;
-    width: max-content;
+    transform: none !important;
+    margin: 0;
+    width: 100%;
     max-width: 100%;
-    animation: heroBadgeInMobile 1s 1.2s cubic-bezier(.22,1,.36,1) forwards;
+    justify-content: flex-start;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    box-shadow: 0 8px 24px rgba(14,12,11,.06);
+    opacity: 1;
+    animation: heroBadgeInMobile .8s 1s cubic-bezier(.22,1,.36,1) backwards;
   }
   @keyframes heroBadgeInMobile {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(12px) !important; }
+    to { opacity: 1; transform: translateY(0) !important; }
   }
-  .hero-badge-text { font-size: 10.5px; }
-  .hero-badge-text strong { font-size: 11.5px; }
-  .hero-badge-stars { font-size: 11px; }
+  .hero-badge-text { font-size: 11px; }
+  .hero-badge-text strong { font-size: 12.5px; }
+  .hero-badge-stars { font-size: 12px; }
   .stat-num { font-size: 22px; }
   .stat-label { font-size: 10px; line-height: 1.25; }
   .hero-stats { gap: 10px; margin-top: 36px; }
@@ -1857,6 +1914,7 @@ section { padding: clamp(80px, 10vw, 140px) var(--pad); position: relative; }
     <span></span><span></span><span></span>
   </button>
 </nav>
+<div class="nav-backdrop" id="navBackdrop"></div>
 
 <!-- ============== HERO ============== -->
 <header class="hero">
@@ -2688,18 +2746,22 @@ window.addEventListener('scroll', function(){
   lastScroll = s;
 });
 
-var burger = document.getElementById('burger'), navLinks = document.getElementById('navLinks');
+var burger = document.getElementById('burger'), navLinks = document.getElementById('navLinks'), navBackdrop = document.getElementById('navBackdrop');
+function closeMenu(){
+  burger.classList.remove('open');
+  navLinks.classList.remove('open');
+  if(navBackdrop) navBackdrop.classList.remove('open');
+  document.body.classList.remove('no-scroll');
+}
 burger.addEventListener('click', function(){
   burger.classList.toggle('open');
   navLinks.classList.toggle('open');
+  if(navBackdrop) navBackdrop.classList.toggle('open');
   document.body.classList.toggle('no-scroll', navLinks.classList.contains('open'));
 });
+if(navBackdrop) navBackdrop.addEventListener('click', closeMenu);
 navLinks.querySelectorAll('a').forEach(function(a){
-  a.addEventListener('click', function(){
-    burger.classList.remove('open');
-    navLinks.classList.remove('open');
-    document.body.classList.remove('no-scroll');
-  });
+  a.addEventListener('click', closeMenu);
 });
 
 // === SCROLL REVEAL ===
